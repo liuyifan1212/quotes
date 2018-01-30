@@ -1,0 +1,100 @@
+<div>
+    <a href="/main" id="logout">Logout</a>
+    <form action="/logout" method="POST" class="logout">
+    {% csrf_token %}
+    </form>
+    <h2>Welcome, {{ user.name }}!</h2>
+</div>
+<h3>Quotable Quotes</h3> <h3>Your Favorites</h3><br>
+<div class="qq">
+    {% if unlike_quotes %}
+    {% for i in unlike_quotes %}
+    <dir class="s">
+        <p>{{i.author}}: {{ i.content }}</p>    
+        <h6>Posted by <a href="/users/{{ i.uploader_id }}">{{ i.uploader.name }}</a></h6>
+        <form action="/addlists" method="POST" class="ss">
+            {% csrf_token %}
+            <input type="hidden" name="quote_id" value="{{i.id}}">           
+            <input type="submit" name="submit" value="Add to My List">
+        </form>
+    </dir>
+    {% endfor %}
+    {% endif %}
+</div>
+<div class="yf">
+    
+
+    {% if favorite %}
+    {% for i in favorite %}
+    <dir class="s">
+        <p>{{i.author}}: {{ i.content }}</p>
+        <h6>Posted by <a href="/users/{{ i.uploader_id }}">{{ i.uploader.name }}</a></h6>
+        <form action="/relists" method="POST" class="ss">
+            {% csrf_token %}
+            <input type="hidden" name="quote_id" value="{{i.id}}">           
+            <input type="submit" name="submit" value="Remove From My List">
+            </form>
+    </dir>
+    {% endfor %}
+    {% endif %}
+
+</div>
+    
+<div class="cq">
+    {% if messages %}
+    ATTENTION!
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    <form action="/addquotes" method="POST">
+        {% csrf_token %}
+        <h4>Contribute a Quote:</h4>
+        Quoted by:
+        <input type="textarea" name="quotedby"><br>
+        Message:
+        <input type="textarea" name="quotes" ><br>
+        <input type="submit" name="submit" value="Submit">
+    </form> 
+</div>
+    
+<style type="text/css">
+    .qq{
+        width: 350px;
+        height: 500px;
+        border:1px solid black;
+        overflow: scroll;
+        display: inline-block;
+    }
+    .yf{
+        width: 350px;
+        height: 300px;
+        border:1px solid black;
+        overflow: scroll;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .cq{
+    
+        display: inline-block;
+        margin-left: -300px;
+        vertical-align: bottom;
+    }
+    .s{
+        width: 250px;
+        border:1px solid black;
+        margin:10px;
+    }
+    #logout{
+        margin-left: 500px;
+    }
+    h3{
+        display: inline-block;
+        margin-right: 250px;
+    }
+   
+</style>
+    
+
+    
+

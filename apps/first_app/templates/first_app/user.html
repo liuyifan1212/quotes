@@ -1,0 +1,31 @@
+<div class="blank"></div>
+<a href="/quotes">Dashboard</a> |
+<form action="/logout" method="POST">
+    {% csrf_token %}
+<a href="/main">Logout</a>
+</form>  
+
+<h3>Posts by {{ users.name }} </h3>
+<h3>Count: {{len}} </h3>
+{% for i in texts %}
+<span>{{ i.author }}:</span> {{ i.content }}<br>
+{% endfor %}
+
+
+<style type="text/css">
+    span{
+        color: red
+    }
+    a{
+        display: inline-block;
+    }
+    form{
+        display: inline-block;
+    }
+    .blank{
+        width: 400px;
+        height: 10px;
+        display: inline-block;
+
+    }
+</style>
